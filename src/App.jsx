@@ -10,8 +10,11 @@ import StudentDashboard from './pages/StudentDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Profile from './pages/Profile';
 
+import Home from './pages/Home';
+
 // Configure Axios Defaults
 axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 axios.interceptors.request.use(config => {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   if (userInfo && userInfo.token) {
@@ -24,7 +27,7 @@ const ProtectedRoute = ({ children, roleRequired }) => {
   const { user } = useContext(AuthContext);
   if (!user) return <Navigate to="/login" replace />;
   if (roleRequired && user.role !== roleRequired) {
-    return user.role === 'admin' ? <Navigate to="/admin" replace /> : <Navigate to="/" replace />;
+    return user.role === 'admin' ? <Navigate to="/admin" replace /> : <Navigate to="/dashboard" replace />;
   }
   return children;
 };
@@ -34,10 +37,11 @@ function AppRoutes() {
   
   return (
     <Routes>
-      <Route path="/login" element={!user ? <Login /> : <Navigate to={user.role === 'admin' ? '/admin' : '/'} />} />
-      <Route path="/register" element={!user ? <Register /> : <Navigate to={user.role === 'admin' ? '/admin' : '/'} />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={!user ? <Login /> : <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} />} />
+      <Route path="/register" element={!user ? <Register /> : <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} />} />
       <Route 
-        path="/" 
+        path="/dashboard" 
         element={
           <ProtectedRoute roleRequired="student">
             <StudentDashboard />
@@ -60,6 +64,7 @@ function AppRoutes() {
           </ProtectedRoute>
         } 
       />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

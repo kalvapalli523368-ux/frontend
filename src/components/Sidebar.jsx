@@ -2,13 +2,13 @@ import { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, User, LogOut, MessageSquare, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.jpg';
 
 export default function Sidebar({ collapsed, setCollapsed }) {
   const { user, logout } = useContext(AuthContext);
 
   const navItems = [
-    { icon: <LayoutDashboard size={20} />, label: 'Dashboard', path: user?.role === 'admin' ? '/admin' : '/' },
+    { icon: <LayoutDashboard size={20} />, label: 'Dashboard', path: user?.role === 'admin' ? '/admin' : '/dashboard' },
     { icon: <User size={20} />, label: 'Profile', path: '/profile' },
   ];
 
@@ -39,7 +39,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
           <NavLink
             key={item.label}
             to={item.path}
-            end={item.path === '/' || item.path === '/admin'}
+            end={item.path === '/dashboard' || item.path === '/admin'}
             title={collapsed ? item.label : undefined}
             className={({ isActive }) =>
               `flex items-center rounded-xl transition-all font-medium border border-transparent ${
