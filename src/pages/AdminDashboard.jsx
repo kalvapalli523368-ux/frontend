@@ -177,14 +177,15 @@ export default function AdminDashboard() {
                   <th className="px-6 py-4 font-bold text-slate-500 uppercase text-xs tracking-wider">Description</th>
                   <th className="px-6 py-4 font-bold text-slate-500 uppercase text-xs tracking-wider text-center">Date Logged</th>
                   <th className="px-6 py-4 font-bold text-slate-500 uppercase text-xs tracking-wider text-center">Status</th>
+                  <th className="px-6 py-4 font-bold text-slate-500 uppercase text-xs tracking-wider">Admin Remark</th>
                   <th className="px-6 py-4 font-bold text-slate-500 uppercase text-xs tracking-wider text-center">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
                 {loading ? (
-                  <tr><td colSpan="6" className="px-6 py-12 text-center text-slate-500 font-medium"><Loader2 size={32} className="animate-spin mx-auto mb-4 text-[#1d40a8]" /> Loading complaints...</td></tr>
+                  <tr><td colSpan="7" className="px-6 py-12 text-center text-slate-500 font-medium"><Loader2 size={32} className="animate-spin mx-auto mb-4 text-[#1d40a8]" /> Loading complaints...</td></tr>
                 ) : filteredComplaints.length === 0 ? (
-                  <tr><td colSpan="6" className="px-6 py-16 text-center text-slate-500 font-medium">No complaints match your filters.</td></tr>
+                  <tr><td colSpan="7" className="px-6 py-16 text-center text-slate-500 font-medium">No complaints match your filters.</td></tr>
                 ) : (
                   paginatedComplaints.map(complaint => (
                     <tr key={complaint.id} className="hover:bg-slate-50/80 transition-colors p-4 group">
@@ -208,6 +209,9 @@ export default function AdminDashboard() {
                         >
                           {complaint.status === 'In Progress' ? 'in_progress' : complaint.status}
                         </span>
+                      </td>
+                      <td className="px-6 py-5 text-slate-600 max-w-xs transition-all">
+                        <p className="line-clamp-2 text-sm italic">{complaint.admin_remark || <span className="text-slate-300">Pending remark...</span>}</p>
                       </td>
                       <td className="px-6 py-5">
                          <div className="flex justify-center space-x-2">

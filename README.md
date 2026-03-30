@@ -127,7 +127,7 @@ git add .
 git commit -m "Initial frontend commit: Complete UI redesign"
 
 # 4. Link to your empty GitHub repository
-git remote add origin https://github.com/your-username/student-complaint-frontend.git
+git remote add origin https://github.com/kalvapalli523368-ux/frontend.git
 
 # 5. Push to the main branch
 git branch -M main

@@ -9,7 +9,7 @@ export default function EditComplaintForm({ complaint, onClose, onSucceed, isAdm
   const [description, setDescription] = useState(complaint.description || '');
   const [incidentDate, setIncidentDate] = useState('');
   const [status, setStatus] = useState(complaint.status || 'Pending');
-  const [adminRemark, setAdminRemark] = useState('');
+  const [adminRemark, setAdminRemark] = useState(complaint.admin_remark || '');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
